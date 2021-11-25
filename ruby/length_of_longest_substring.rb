@@ -6,18 +6,19 @@
 # Output: 3
 # Explanation: The answer is "abc", with the length of 3.
   
-
 def length_of_longest_substring(s)
-    last_idx = {}
-    start_idx = 0
-    max_len = 0
-    for i in 0..s.length-1 do
-        if last_idx[s[i]]
-            start_idx =  start_idx > last_idx[s[i]] + 1 ? start_idx : last_idx[s[i]]+1
-        end
-        
-        max_len = max_len > i-start_idx+1 ? max_len : (i-start_idx+1)
-        last_idx[s[i]] = i
+  substring = ''
+  max_len = 0
+    
+  for i in 0..s.length-1 do
+    if substring.include?(s[i])
+      substring = substring.split(s[i])[1]
+      substring = '' if substring.nil?
     end
-    max_len
+    substring = substring + s[i]
+    if substring.length > max_len
+      max_len = substring.length
+    end
+  end
+  max_len
 end
